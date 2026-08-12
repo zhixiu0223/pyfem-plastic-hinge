@@ -1,0 +1,30 @@
+name: Execute notebooks
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  run-notebooks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install pyFEM (editable, so notebooks can write into pyfem/elements/)
+        run: |
+          git clone https://github.com/jjcremmers/PyFEM.git /tmp/PyFEM
+          pip install -e /tmp/PyFEM
+          pip install jupyter nbconvert numpy scipy matplotlib
+
+      - name: Execute all notebooks (fails the run if any cell raises)
+        run: |
+          for nb in notebooks/*.ipynb; do
+            echo "=== Executing $nb ==="
+            jupyter nbconvert --to notebook --execute --inplace "$nb" \
+              --ExecutePreprocessor.timeout=600
+          done
