@@ -19,3 +19,6 @@
 | Case-05 | 完整 portal frame pushover,跟 OpenSeesPy + CalculiX HINGE2 三方比對 | 尚未開始 |
 
 詳見 `ROADMAP.md`。
+[![Execute notebook & verify results](https://github.com/zhixiu0223/pyfem-plastic-hinge/actions/workflows/notebook-ci.yml/badge.svg)](https://github.com/zhixiu0223/pyfem-plastic-hinge/actions/workflows/notebook-ci.yml)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/zhixiu0223/pyfem-plastic-hinge/blob/main/notebooks/case01_rotspring_isolated.ipynb)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
