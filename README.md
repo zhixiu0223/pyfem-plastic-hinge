@@ -20,6 +20,6 @@
 
 詳見 `ROADMAP.md`。
 [![Execute notebook & verify results](https://github.com/zhixiu0223/pyfem-plastic-hinge/actions/workflows/notebook-ci.yml/badge.svg)](https://github.com/zhixiu0223/pyfem-plastic-hinge/actions/workflows/notebook-ci.yml)
-* [Case-01:](notebooks/case01_rotspring_isolated.ipynb)
+* [Case-01:測試case01_rotspring_isolated.ipynb](notebooks/case01_rotspring_isolated.ipynb)
   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/zhixiu0223/pyfem-plastic-hinge/blob/main/notebooks/case01_rotspring_isolated.ipynb)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
