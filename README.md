@@ -21,6 +21,7 @@
 | Case-03 | 柱子方向(垂直)幾何驗證 | **已完成** |
 | Case-04 | 非線性 M-θ(Mp 封頂)+ 疊代自我檢查 | **已完成** |
 | Case-05 | 完整 portal frame pushover,跟 OpenSeesPy + CalculiX HINGE2 四方比對 | **已完成** |
+| Case-06 | 換成真實配筋 Mp(taiwan-seismic-code-calc Case-08.4)+ 求解器 fallback 策略 | **已完成** |
 
 詳見 [`ROADMAP.md`](ROADMAP.md)。
 
@@ -40,3 +41,6 @@
 
 * [Case-05: 完整 portal frame pushover,四方比對](notebooks/case05_portal_pushover.ipynb)
   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/zhixiu0223/pyfem-plastic-hinge/blob/main/notebooks/case05_portal_pushover.ipynb)
+
+* [Case-06: 換成真實配筋 Mp + 求解器 fallback 策略](notebooks/case06_real_Mp.ipynb)
+  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/zhixiu0223/pyfem-plastic-hinge/blob/main/notebooks/case06_real_Mp.ipynb)

@@ -103,3 +103,24 @@ Hu 幾乎完全對上,K 差 0.6%,有明確物理來源:`BeamNL` 內建剪力變�
 | VL-04b | 加載-卸載的彈性卸載行為 | 手算彈性卸載線 | 誤差 0,驗證了 HINGE2 目前不具備的能力 | Case-04 |
 | VL-04c | 組合模型力控制過降伏點 | Mp 封頂 + 疊代收斂行為 | 彎矩精確封頂,60次疊代確認非線性有被處理到 | Case-04 |
 | VL-05 | 完整 portal frame pushover(4鉸,位移控制) | 手算/OpenSeesPy/CalculiX K與Hu | K差-0.603%(剪力變形項導致,有物理解釋),Hu差+0.166% | Case-05 |
+| VL-06 | 換真實Mp(238.10)後 Hu 是否隨 Mp 線性縮放 | 虛功法 mechanism 理論(Hu∝Mp) | Hu比值0.7937 = Mp比值0.7937,差異0.0005% | Case-06 |
+
+### Case-06:換成真實配筋 Mp + 求解器 fallback 策略 —— **[已完成]**
+`notebooks/case06_real_Mp.ipynb`
+
+把 Case-05 假設的 Mp=300 換成 `taiwan-seismic-code-calc` Case-08.4
+`design_column_PM()` 在 Pu=147.6kN 算出的真實標稱容量 Mp=238.10(無圍束
+假設,跟手算應變相容法、`concreteproperties` 三方驗證在2%內)。
+
+過程中真的卡住一次:C1_top/C2_top 兩個鉸幾乎同時降伏的臨界點,原本
+Case-05 那套「固定步長+對分法續走」卡住不收斂(拉大疊代次數、加深對分
+深度都沒用)。改成三層 fallback 策略(標準 Newton → 固定初始切線的
+Modified Newton → 阻尼 Newton,全部失敗才縮步長)後才收斂,借用了
+OpenSeesPy `analyze_with_fallback()` 的精神。
+
+**驗證**:Hu(Mp=238.10)/Hu(Mp=300) = 0.7937,跟 Mp 比值(238.10/300=
+0.7937)完全吻合,差異0.0005%——sway mechanism 極限剪力理論上應與 Mp
+成正比(虛功法標準結論),這個線性關係直接當獨立檢驗用。
+
+**仍待補的缺口**(不在這一課範圍內):轉角容量檢核(IO/LS/CP)、真實
+桃園2層8柱幾何驗證。
