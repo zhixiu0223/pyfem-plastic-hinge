@@ -53,6 +53,10 @@ commitHistory→卸載」正確走彈性卸載線——這是 calculix-hinge2 �
 不收斂,改成增量式載重(20子步驟)才成功,且收斂後物理行為合理(P略超
 臨界值時位移跳增到接近機構量級,彈簧彎矩精確封頂在 Mp)。
 
+**補充(第5-7節)**:結構示意圖、完整 P-Δ capacity curve(增量式力控制
+密集取樣)、以及獨立驗證用的題目摘要表(參數+邊界條件+手算公式,不需要
+讀懂程式碼就能用自己的工具重建同一個模型比對)。
+
 ### Case-05:完整 portal frame pushover,三方比對 —— **[尚未開始]**
 跟 OpenSeesPy(`pynite_event_pushover.py` 那條線)、CalculiX HINGE2+UB
 (已完成,K_ccx 對 K_ops 差 0.00000%)三方比對。
