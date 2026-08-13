@@ -57,9 +57,38 @@ commitHistory→卸載」正確走彈性卸載線——這是 calculix-hinge2 �
 密集取樣)、以及獨立驗證用的題目摘要表(參數+邊界條件+手算公式,不需要
 讀懂程式碼就能用自己的工具重建同一個模型比對)。
 
-### Case-05:完整 portal frame pushover,三方比對 —— **[尚未開始]**
-跟 OpenSeesPy(`pynite_event_pushover.py` 那條線)、CalculiX HINGE2+UB
-(已完成,K_ccx 對 K_ops 差 0.00000%)三方比對。
+### Case-05:完整 portal frame pushover,四方比對 —— **[已完成]**
+`notebooks/case05_portal_pushover.ipynb`
+
+跟 `portal_frame_thesis`/`calculix-hinge2` 完全同一組參數(h=3.5, L=6.0,
+E=2.05e8, Ic=2e-4, Ib=4e-4, Ac=Ab=0.02, ktheta=1e10, Mp=300, k_big=1e10,
+target_disp=0.20)。第一個超靜定結構(兩柱並聯),第一次真正需要位移
+控制(4鉸全降伏後結構退化成 sway mechanism,力控制在那之前就會失敗)。
+
+`RotSpring2DPlastic` 新增選用的 `k_big` 平移綁定參數(預設0,不影響
+Case-01~04 已通過的結果),用來處理柱頂鉸這種「浮空」節點——不像柱底鉸
+旁邊就是地面BC,樑柱交會節點本身平移沒有其他東西固定,要靠這個項目自己
+把兩節點的平移鎖住(跟 calculix-hinge2 的 HINGE2 加 k_big 的理由完全
+一樣)。
+
+過程中連續踩了四個坑(結構圖後面的說明段落有完整記錄):浮空鉸的平移
+綁定機制、收斂容忍值抓錯(用 ktheta*du 當比例基準鬆到形同虛設)、忘記
+呼叫 commitHistory() 導致降伏事件偵測不到(單調載重下數值巧合是對的,
+但邏輯本身錯誤)、接近全機構形成的臨界點固定步長不收斂(改成失敗退回、
+步長減半重試的對分法)。
+
+**四方比對結果**:
+
+| | K (kN/m) | 跟 OpenSeesPy 差異 | Hu (kN) | 跟 OpenSeesPy 差異 |
+|---|---|---|---|---|
+| 手算 | 16691.23 | +0.186% | 342.857 | 0.000% |
+| OpenSeesPy | 16660.21 | — | 342.857 | — |
+| CalculiX HINGE2+UB | 16660.21 | 0.000% | 342.8572 | 0.000% |
+| pyFEM(這個repo) | 16559.81 | -0.603% | 343.4255 | +0.166% |
+
+Hu 幾乎完全對上,K 差 0.6%,有明確物理來源:`BeamNL` 內建剪力變形項
+(OpenSeesPy/CalculiX 都是純 Euler-Bernoulli),用很大的 G 去逼近剪力
+剛性極限但沒有真的無窮大,殘留一點差異,不是巧合湊出來的。
 
 ---
 
@@ -73,3 +102,4 @@ commitHistory→卸載」正確走彈性卸載線——這是 calculix-hinge2 �
 | VL-04a | RotSpring2DPlastic 骨架線(孤立) | 手算彈塑性骨架線 | 誤差 0(多個測試點) | Case-04 |
 | VL-04b | 加載-卸載的彈性卸載行為 | 手算彈性卸載線 | 誤差 0,驗證了 HINGE2 目前不具備的能力 | Case-04 |
 | VL-04c | 組合模型力控制過降伏點 | Mp 封頂 + 疊代收斂行為 | 彎矩精確封頂,60次疊代確認非線性有被處理到 | Case-04 |
+| VL-05 | 完整 portal frame pushover(4鉸,位移控制) | 手算/OpenSeesPy/CalculiX K與Hu | K差-0.603%(剪力變形項導致,有物理解釋),Hu差+0.166% | Case-05 |

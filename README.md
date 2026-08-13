@@ -20,7 +20,7 @@
 | Case-02 | 跟 `BeamNL` 串接(彈簧+梁組合撓度對手算疊加) | **已完成** |
 | Case-03 | 柱子方向(垂直)幾何驗證 | **已完成** |
 | Case-04 | 非線性 M-θ(Mp 封頂)+ 疊代自我檢查 | **已完成** |
-| Case-05 | 完整 portal frame pushover,跟 OpenSeesPy + CalculiX HINGE2 三方比對 | 尚未開始 |
+| Case-05 | 完整 portal frame pushover,跟 OpenSeesPy + CalculiX HINGE2 四方比對 | **已完成** |
 
 詳見 [`ROADMAP.md`](ROADMAP.md)。
 
@@ -37,3 +37,6 @@
 
 * [Case-04: 非線性 M-θ(Mp 封頂)+ 疊代自我檢查](notebooks/case04_nonlinear_Mtheta.ipynb)
   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/zhixiu0223/pyfem-plastic-hinge/blob/main/notebooks/case04_nonlinear_Mtheta.ipynb)
+
+* [Case-05: 完整 portal frame pushover,四方比對](notebooks/case05_portal_pushover.ipynb)
+  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/zhixiu0223/pyfem-plastic-hinge/blob/main/notebooks/case05_portal_pushover.ipynb)
