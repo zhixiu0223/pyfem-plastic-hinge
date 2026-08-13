@@ -27,9 +27,15 @@ P=10N(小變形範圍)時相對誤差 1.363e-08。額外做了診斷:P=1000N 時
 是 `BeamNL` 的幾何非線性(co-rotational)造成,不是元素組合寫錯,元素
 本身在小變形線性範圍內驗證通過。
 
-### Case-03:柱子方向幾何驗證 —— **[尚未開始]**
+### Case-03:柱子方向幾何驗證 —— **[已完成]**
+`notebooks/case03_column_orientation.ipynb`
+
 垂直柱(非水平)+底部塑鉸+側向力,對應 calculix-hinge2 的
 「portal-frame-relevant geometry test」。
+
+P=10N 時相對誤差 1.363e-08,跟 Case-02(水平梁)數值比對差異 3.37e-07mm
+(浮點雜訊等級)——確認 `BeamNL` 座標轉換在垂直方向正確,`RotSpring2D`
+不受方向影響。
 
 ### Case-04:非線性 M-θ(Mp 封頂)—— **[尚未開始]**
 用 `self.history` 記錄降伏狀態(elastic-perfectly-plastic,監控式加載)。
@@ -49,3 +55,4 @@ P=10N(小變形範圍)時相對誤差 1.363e-08。額外做了診斷:P=1000N 時
 |---|---|---|---|---|
 | VL-01 | RotSpring2D 孤立線性行為 | 手算 M/k | 相對誤差 0.000e+00,殘差 0.000e+00 | Case-01 |
 | VL-02 | RotSpring2D+BeamNL 組合撓度 | 手算疊加(θ₀L+PL³/3EI) | P=10N: 相對誤差 1.363e-08;誤差隨P²衰減特徵確認殘餘來自幾何非線性 | Case-02 |
+| VL-03 | RotSpring2D+BeamNL 組合撓度(垂直柱方向) | 手算疊加 + Case-02 數值比對 | 相對誤差 1.363e-08,跟 Case-02 差異 3.37e-07mm | Case-03 |
